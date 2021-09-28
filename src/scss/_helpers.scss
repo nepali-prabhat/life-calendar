@@ -1,0 +1,44 @@
+@use "variables" as  v;
+
+// text-success, text-info ,etc
+$theme-colors: (
+    success: v.$success,
+    info: v.$info,
+    warning: v.$warning,
+    danger: v.$danger,
+    muted: v.$muted,
+);
+@each $name, $color in v.$theme-colors {
+    .text-#{$name} {
+        color: $color;
+    }
+}
+
+// ml-2 mr-2, pr-3, pl-3 etc
+$multipliers: (
+    0: 0,
+    1: 0.25,
+    2: 0.5,
+    3: 1,
+    4: 1.5,
+    5: 3,
+);
+@each $name, $multiplier in $multipliers {
+    .ml-#{$name} {
+        margin-left: #{v.$spacer * $multiplier}rem;
+    }
+    .mr-#{$name} {
+        margin-right: #{v.$spacer * $multiplier}rem;
+    }
+    .pl-#{$name} {
+        padding-left: #{v.$spacer * $multiplier}rem;
+    }
+    .pr-#{$name} {
+        padding-right: #{v.$spacer * $multiplier}rem;
+    }
+}
+
+.width-100 {
+    width: 100%;
+}
+

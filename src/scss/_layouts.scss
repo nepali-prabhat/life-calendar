@@ -1,0 +1,14 @@
+@use "./settings" as s;
+.layout {
+    max-width: s.layout(max-width);
+    margin: 0 auto;
+    padding: s.layout(padding);
+
+    &.-left {
+        margin-left: 0;
+    }
+
+    &.-right {
+        margin-right: 0;
+    }
+}

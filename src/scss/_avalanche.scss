@@ -1,0 +1,15 @@
+@use "avalanche-css" with (
+    $av-gutter:                  8px,
+    $av-enable-grid-center:      true,
+    $av-enable-grid-cell-center: true,
+    $av-enable-grid-right:       true,
+    $av-enable-grid-middle:      true,
+    $av-enable-grid-bottom:      true,
+    $av-enable-grid-flush:       true,
+    $av-enable-grid-auto:        true,
+    $av-enable-grid-rev:         true,
+    $av-enable-grid-tiny:        false,
+    $av-enable-grid-small:       false,
+    $av-enable-grid-large:       false,
+    $av-enable-grid-huge:        false,
+);

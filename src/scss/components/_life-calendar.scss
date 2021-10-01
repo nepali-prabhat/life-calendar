@@ -1,0 +1,62 @@
+@use "../variables" as v;
+
+.app {
+    width: 100%;
+    min-height: 100vh;
+    background: v.$black;
+    color: v.$white;
+    h1 {
+        color: v.$maroon;
+    }
+    .view-info {
+        color: v.$light-green;
+    }
+    .view-button-group {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+
+        button {
+            border-radius: calc(v.$border-radius / 2);
+            &.active-view {
+                background: v.$light-green;
+            }
+        }
+    }
+    .view-calendar-wrapper {
+        display: grid;
+        &.view-week {
+            grid-gap: 8px;
+            grid-template-columns: repeat(52, 1fr);
+        }
+        &.view-month {
+            grid-gap: 16px;
+            grid-template-columns: repeat(24, 1fr);
+        }
+        &.view-year {
+            grid-gap: 24px;
+            grid-template-columns: repeat(10, 1fr);
+        }
+
+        .box {
+            text-align: center;
+            border-radius: 25%;
+
+            &.box-past {
+                background: v.$light-green;
+            }
+            &.box-current {
+                background: v.$maroon;
+            }
+            &.box-future {
+                background: v.$gray-dark;
+            }
+        }
+    }
+}
+
+.card {
+    border: 4px solid v.$gray-dark;
+    border-radius: v.$border-radius;
+    padding: 20px;
+}

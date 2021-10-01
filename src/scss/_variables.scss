@@ -1,24 +1,30 @@
 // root colors
+
 $cyan: #5bc0de;
 $orange: #f0ad4e;
 $red: #e45826;
 $green: #5aa897;
-$white: #fff;
-$black: #000;
+
+$maroon: #ea606d;
+$light-green: #a3be8c;
+$pale-peach: #ebcb8b;
+$gray-blue: #81a1c1;
+$dusty-lavendar: #b48ead;
+$light-blue: #88c0d0;
+$white: #f4f5f7;
+$black: #2e3440;
+
+$muted: #9da0a8;
 
 $gray-1: #f4f5f7;
 $gray-2: #ebecf0;
-$gray-dark: #383e4b;
+$gray-dark: #3b4252;
 
 $success: $green;
 $info: $cyan;
 $warning: $orange;
 $danger: $red;
-$muted: #9da0a8;
 $text-muted: $muted;
 
 $font-size-base: 0.875rem;
-
-$border-radius: 0.25rem;
-
-$spacer: 1 !default;
+$border-radius: 0.35rem;

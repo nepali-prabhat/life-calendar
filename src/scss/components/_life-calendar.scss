@@ -53,6 +53,19 @@
             }
         }
     }
+    .view-calendar-tooltip-wrapper {
+        position: relative;
+        .tooltip-container {
+            position: absolute;
+            // top: 0;
+            // left: 0;
+            background: v.$pale-peach;
+            color: v.$black;
+            padding: 20px;
+            border-radius: v.$border-radius;
+            transition: 200ms ease-in-out;
+        }
+    }
 }
 
 .card {

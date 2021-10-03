@@ -3,10 +3,11 @@ import { parse } from "date-fns";
 import classNames from "classnames";
 
 import ViewInfo from "./ViewInfo";
-import { ViewType } from "./types";
+import { Data, ViewType } from "./types";
 import { LIFE_EXPECTANCY, BIRTH_DAY } from "./constants";
 import ViewCalendar from "./ViewCalendar";
 import useLifeCalendar from "./hooks/useLifeCalendar";
+import Tooltip from "./Tooltip";
 
 const App: React.FC = () => {
     const [lifeExpectancy] = useState<number>(LIFE_EXPECTANCY);
@@ -14,6 +15,13 @@ const App: React.FC = () => {
         parse(BIRTH_DAY, "yyyy-MM-dd", new Date())
     );
     const [view, setView] = useState<ViewType>("week");
+    const [tooltipState, setTooltipState] = useState<{
+        position: {
+            bottom: number;
+            right: number;
+        };
+        data: Data;
+    }>();
     const { lifeCalendar } = useLifeCalendar(birthDay, lifeExpectancy);
 
     return (
@@ -50,7 +58,14 @@ const App: React.FC = () => {
                         </div>
                     </div>
                     <ViewInfo view={view} lifeCalendar={lifeCalendar} />
-                    <ViewCalendar view={view} lifeCalendar={lifeCalendar} />
+                    <div className="view-calendar-tooltip-wrapper">
+                        <ViewCalendar
+                            changeTooltipPosition={setTooltipState}
+                            view={view}
+                            lifeCalendar={lifeCalendar}
+                        />
+                        {tooltipState && <Tooltip {...tooltipState} />}
+                    </div>
                 </div>
             </div>
         </div>

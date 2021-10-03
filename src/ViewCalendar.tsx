@@ -1,22 +1,50 @@
-import React, { useRef, useState } from "react";
+import _ from "lodash";
+import React, {
+    MouseEvent,
+    MouseEventHandler,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
 import { useResizeDetector } from "react-resize-detector";
-import { LifeCalendarData, ViewType, DataType } from "./types";
-import { BOX_SIZE } from "./constants";
+import { LifeCalendarData, ViewType, DataType, Data } from "./types";
 
-const Box: React.FC<{ width: number; type: DataType }> = ({ width, type }) => {
-    const boxSize = width;
+const Box: React.FC<{
+    width: number;
+    type: DataType;
+    data: Data;
+    onClick: (e: MouseEvent<HTMLDivElement>, data: Data) => void;
+}> = ({ width, type, data, onClick }) => {
     return (
         <div
             className={`box box-${type}`}
-            style={{ height: `${boxSize}px`, width: `${boxSize}px` }}
+            style={{ height: `${width}px`, width: `${width}px` }}
+            onClick={e => onClick(e, data)}
         ></div>
     );
 };
 
+const MemoizedBox = React.memo(Box, (prevProps, nextProps) => {
+    return (
+        _.isEqual(prevProps.data, nextProps.data) &&
+        prevProps.width === nextProps.width
+    );
+});
+
 const ViewCalendar: React.FC<{
     view: ViewType;
+    changeTooltipPosition: ({
+        position: { bottom, right },
+        data,
+    }: {
+        position: {
+            bottom: number;
+            right: number;
+        };
+        data: Data;
+    }) => void;
     lifeCalendar?: LifeCalendarData;
-}> = ({ view, lifeCalendar }) => {
+}> = ({ view, lifeCalendar, changeTooltipPosition }) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const [width, setBoxWidth] = useState(0);
 
@@ -40,6 +68,15 @@ const ViewCalendar: React.FC<{
     };
     const boxWidth = calculateBoxWidth[view]();
 
+    const onClick = (e: MouseEvent<HTMLDivElement>, data: Data) => {
+        const { offsetTop, offsetLeft, offsetParent } =
+            e.target as HTMLDivElement;
+        const { offsetHeight, offsetWidth } = offsetParent as HTMLDivElement;
+        const bottom = offsetHeight - offsetTop;
+        const right = offsetWidth - offsetLeft;
+        changeTooltipPosition({ position: { bottom, right }, data });
+    };
+
     switch (view) {
         case "week":
             return (
@@ -48,9 +85,13 @@ const ViewCalendar: React.FC<{
                     className={`view-calendar-wrapper view-${view}`}
                 >
                     {lifeCalendar.weekData.map(weekData => (
-                        <div key={`week-number-${weekData.number}`}>
-                            <Box width={boxWidth} type={weekData.type} />
-                        </div>
+                        <MemoizedBox
+                            key={`week-number-${weekData.number}`}
+                            width={boxWidth}
+                            type={weekData.type}
+                            data={weekData}
+                            onClick={onClick}
+                        />
                     ))}
                 </div>
             );
@@ -61,9 +102,13 @@ const ViewCalendar: React.FC<{
                     className={`view-calendar-wrapper view-${view}`}
                 >
                     {lifeCalendar.monthData.map(monthData => (
-                        <div key={`week-number-${monthData.number}`}>
-                            <Box width={boxWidth} type={monthData.type} />
-                        </div>
+                        <MemoizedBox
+                            key={`week-number-${monthData.number}`}
+                            width={boxWidth}
+                            type={monthData.type}
+                            data={monthData}
+                            onClick={onClick}
+                        />
                     ))}
                 </div>
             );
@@ -74,9 +119,13 @@ const ViewCalendar: React.FC<{
                     className={`view-calendar-wrapper view-${view}`}
                 >
                     {lifeCalendar.yearData.map(yearData => (
-                        <div key={`week-number-${yearData.number}`}>
-                            <Box width={boxWidth} type={yearData.type} />
-                        </div>
+                        <MemoizedBox
+                            key={`week-number-${yearData.number}`}
+                            width={boxWidth}
+                            type={yearData.type}
+                            data={yearData}
+                            onClick={onClick}
+                        />
                     ))}
                 </div>
             );

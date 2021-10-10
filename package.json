@@ -19,6 +19,7 @@
         "react-redux": "^7.2.5",
         "react-resize-detector": "^6.7.6",
         "redux": "^4.1.1",
+        "reselect": "^4.0.0",
         "sass": "^1.42.1"
     },
     "devDependencies": {
@@ -26,6 +27,7 @@
         "@types/react": "^17.0.0",
         "@types/react-dom": "^17.0.0",
         "@types/react-redux": "^7.1.18",
+        "@types/reselect": "^2.2.0",
         "@typescript-eslint/eslint-plugin": "^4.31.2",
         "@typescript-eslint/parser": "^4.31.2",
         "@vitejs/plugin-react": "^1.0.0",

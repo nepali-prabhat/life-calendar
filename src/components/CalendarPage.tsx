@@ -3,13 +3,12 @@ import { parse } from "date-fns";
 import classNames from "classnames";
 
 import ViewInfo from "./ViewInfo";
-import { Data, ViewType } from "./types";
-import { LIFE_EXPECTANCY, BIRTH_DAY } from "./constants";
+import { Data, ViewType } from "../@types";
+import { LIFE_EXPECTANCY, BIRTH_DAY } from "../constants";
 import ViewCalendar from "./ViewCalendar";
-import useLifeCalendar from "./hooks/useLifeCalendar";
 import Tooltip from "./Tooltip";
 
-const App: React.FC = () => {
+const CalendarPage: React.FC = () => {
     const [lifeExpectancy] = useState<number>(LIFE_EXPECTANCY);
     const [birthDay] = useState<Date>(
         parse(BIRTH_DAY, "yyyy-MM-dd", new Date())
@@ -22,7 +21,6 @@ const App: React.FC = () => {
         };
         data: Data;
     }>();
-    const { lifeCalendar } = useLifeCalendar(birthDay, lifeExpectancy);
 
     return (
         <div className="app">
@@ -72,4 +70,4 @@ const App: React.FC = () => {
     );
 };
 
-export default App;
+export default CalendarPage;

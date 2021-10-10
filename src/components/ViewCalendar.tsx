@@ -1,13 +1,11 @@
 import _ from "lodash";
 import React, {
     MouseEvent,
-    MouseEventHandler,
-    useMemo,
     useRef,
     useState,
 } from "react";
 import { useResizeDetector } from "react-resize-detector";
-import { LifeCalendarData, ViewType, DataType, Data } from "./types";
+import { ViewType, DataType, Data } from "../@types";
 
 const Box: React.FC<{
     width: number;
@@ -33,6 +31,7 @@ const MemoizedBox = React.memo(Box, (prevProps, nextProps) => {
 
 const ViewCalendar: React.FC<{
     view: ViewType;
+    lifeCalendar?: LifeCalendarData;
     changeTooltipPosition: ({
         position: { bottom, right },
         data,
@@ -43,7 +42,6 @@ const ViewCalendar: React.FC<{
         };
         data: Data;
     }) => void;
-    lifeCalendar?: LifeCalendarData;
 }> = ({ view, lifeCalendar, changeTooltipPosition }) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const [width, setBoxWidth] = useState(0);
